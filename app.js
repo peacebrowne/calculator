@@ -50,6 +50,7 @@ const del = data => {
     data.innerHTML = data.innerHTML.substring(-1, data.innerHTML.length-1)
 
 }
+
 const result = () =>{
     
     let result
