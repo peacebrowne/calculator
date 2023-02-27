@@ -4,14 +4,9 @@ const cancelBtn = document.getElementById('cancel')
 
 let calculator = '0';
 
-let n = 8;
 const numbers = ev =>{
     let button = ev.dataset.value;
-    if(demo.innerHTML.length == n) {
-        // demo.style.fontSize = '2rem'
-        demo.innerHTML += '\n'
-        n= n + n;
-    }
+    
     if(demo.innerHTML == '0'){
         demo.innerHTML = button
         calculator = button;
@@ -25,11 +20,6 @@ const numbers = ev =>{
 const operators = ev =>{
 
     let arithmetic = ev;
-
-    console.log(calculator)
-    if(demo.innerHTML.length >= 5) {
-        demo.style.fontSize = 'small'
-    }
 
     if(calculator.endsWith('* ') || calculator.endsWith('+ ') || calculator.endsWith('/ ') || calculator.endsWith('- ')){
         
