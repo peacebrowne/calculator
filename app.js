@@ -58,7 +58,6 @@ const result = () =>{
         result = eval(calculator)
         demo.innerHTML = result
         calculator = demo.innerHTML
-        console.log(calculator)
     }
 
 }
