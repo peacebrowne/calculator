@@ -142,14 +142,13 @@ onclick = ev => {
 
 const banner = document.querySelector('.banner')
 const switch_bgColor = document.querySelector('.toggle')
+const body = element('body')
 
 /**
  * @param data - switches between color
  */
 const modes = () =>{
-    banner.classList.toggle('banner_whitemode')
-    screen.classList.toggle('demo_whitemode')
-    first.forEach(btn => btn.classList.toggle('demo_whitemode'))
+    body.classList.toggle('light')
 }
 
 switch_bgColor.addEventListener('click',modes)
