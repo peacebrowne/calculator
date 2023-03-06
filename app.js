@@ -17,20 +17,23 @@ const numbers = ev =>{
     }
 }
 
+/**
+ * @param ev - arithmetic operator buttons
+ */
 const operators = ev =>{
 
-    let arithmetic = ev;
+    const arithmetic = ev;
 
     if(calculator.endsWith('* ') || calculator.endsWith('+ ') || calculator.endsWith('/ ') || calculator.endsWith('- ')){
         
-        let demo_data = Array.from(demo.textContent);
+        const demo_data = Array.from(demo.textContent);
         demo_data[demo_data.length-2] = arithmetic.innerHTML;
-        let demo_result = demo_data.join('').split(',').join()
+        const demo_result = demo_data.join('').split(',').join()
         demo.innerHTML =  demo_result;
 
-        let calc_data = Array.from(calculator)
+        const calc_data = Array.from(calculator)
         calc_data[calc_data.length-2] = arithmetic.dataset.value;
-        let calc_result = calc_data.join('').split(',').join()
+        const calc_result = calc_data.join('').split(',').join()
         calculator =  calc_result;
 
     }else{
@@ -43,11 +46,16 @@ const operators = ev =>{
 
 }
 
+/**
+ * @param btn - cancel button
+ */
 const cancel = btn =>{
     demo.innerHTML = 0;
     calculator = '0'
     btn.innerHTML = 'ac'
 }
+
+// result from the calculations
 const result = () =>{
     let result
     if(demo.innerHTML.endsWith('% ')){
@@ -62,6 +70,9 @@ const result = () =>{
 
 }
 
+/**
+ * @param data - nagetive button
+ */
 const negative = data =>{
     let symbol = data.dataset.value.split('/')[1]
 
@@ -81,13 +92,15 @@ buttons.addEventListener('click', ev => {
     else if(btn.className.includes('negative')) negative(btn)
     else if(btn.className.includes('equal')) result();
     
-
 })
 
 const banner = document.querySelector('.banner')
 const switch_bgColor = document.querySelector('.toggle')
 const first = document.querySelectorAll('.first')
 
+/**
+ * @param data - switches between color
+ */
 const modes = () =>{
     banner.classList.toggle('banner_whitemode')
     demo.classList.toggle('demo_whitemode')
