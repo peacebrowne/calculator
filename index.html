@@ -11,33 +11,35 @@
 
     <main>
         
-        <div class="banner">
-            <div id="demo" class="input_field">0</div>
-            <div class="buttons">
-                <button class="cancel first" id="cancel" data-value="ac">ac</button>
-                <button class="negative  first" data-value="+/-">+/-</button>
-                <button class="operator  first" data-value="%">%</button>
-                <button class="operator arithmetic" data-value="/">&divide;</button>
-                <button class="number" data-value="7">7</button>
-                <button class="number" data-value="8">8</button>
-                <button class="number" data-value="9">9</button>
-                <button class="operator arithmetic" data-value="*">&#215;</button>
-                <button class="number" data-value="4">4</button>
-                <button class="number" data-value="5">5</button>
-                <button class="number" data-value="6">6</button>
-                <button class="operator arithmetic" data-value="-">&#8722;</button>
-                <button class="number" data-value="1">1</button>
-                <button class="number" data-value="2">2</button>
-                <button class="number" data-value="3">3</button>
-                <button class="operator arithmetic" data-value="+">&#43;</button>
-                <button class="number zero" data-value="0">0</button>
-                <button class="number" data-value=".">.</button>
-                <button class="equal" data-value="=">&#61;</button>
-            </div>
-            <div class="toggle">
-                <h5>Switch Background</h5>
-            </div>
-        </div>
+        <section class="banner">
+            <section class="screen">
+                <textarea name="" id="" cols="15" rows="2"></textarea>
+            </section>
+            <section class="buttons">
+                <button class="first-three-btn cancel-btn" data-value="ac">ac</button>
+                <button class="first-three-btn negative-btn" data-value="+/-">+/-</button>
+                <button class="first-three-btn operator-btn" data-value="%">%</button>
+                <button class="operator-btn" data-value="/">&divide;</button>
+                <button class="number-btn" data-value="7">7</button>
+                <button class="number-btn" data-value="8">8</button>
+                <button class="number-btn" data-value="9">9</button>
+                <button class="operator-btn" data-value="*">&times;</button>
+                <button class="number-btn" data-value="4">4</button>
+                <button class="number-btn" data-value="5">5</button>
+                <button class="number-btn" data-value="6">6</button>
+                <button class="operator-btn" data-value="-">&minus;</button>
+                <button class="number-btn" data-value="1">1</button>
+                <button class="number-btn" data-value="2">2</button>
+                <button class="number-btn" data-value="3">3</button>
+                <button class="operator-btn" data-value="+">&plus;</button>
+                <button class="number-btn zero-btn" data-value="0">0</button>
+                <button class="number-btn decimal-btn" data-value=".">.</button>
+                <button class="equal-btn" data-value="=">&equals;</button>
+            </section>
+            <footer>
+                <button class="toggle">Switch Background</button>
+            </footer>
+        </section>
     </main>
     
     <script src="app.js"></script>

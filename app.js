@@ -1,109 +1,154 @@
-const demo = document.getElementById('demo')
-const buttons = document.querySelector('.buttons')
-const cancelBtn = document.getElementById('cancel')
+/**
+ * returning node element based on the specified class or id value;
+ * @param {value} - class or id attribute value;
+ * @returns {node element} - node element
+ */
+const element = value => {
+    return document.querySelector(value)
+}
 
-let calculator = '0';
+const screen = element('.screen textarea')
+const buttons_div = element('.buttons')
+const cancel_btn = element('.cancel-btn')
+const c = 'c';
+const ac = 'ac';
+const zero = '0';
 
-const numbers = ev =>{
-    let button = ev.dataset.value;
+let rolling_values = zero;
+
+/**
+ * returning node element based on the specified class or id value;
+ * @param {node element} - node element
+ * @returns {void} 
+ */
+const display_numbers_on_screen = ele =>{
+
+    const btn_value = ele.dataset.value;
     
-    if(demo.innerHTML == '0'){
-        demo.innerHTML = button
-        calculator = button;
-        cancelBtn.innerHTML = 'c'
+    if(screen.value == zero ){
+
+        screen.value = btn_value;
+        rolling_values = btn_value;
+        cancel_btn.textContent = c;
+
     }else {
-        demo.innerHTML += button
-        calculator += button;
+
+        screen.value += btn_value;
+        rolling_values += btn_value;
+
     }
 }
 
 /**
- * @param ev - arithmetic operator buttons
+ * Displaying the value of the operator button on the screen.
+ * if the screen initial value doesn't ends with an operator, it should append new value.
+ * @param {ele} - arithmetic operator button
+ * @returns {void}
  */
-const operators = ev =>{
+const display_operator_on_screen = ele =>{
 
-    const arithmetic = ev;
 
-    if(calculator.endsWith('* ') || calculator.endsWith('+ ') || calculator.endsWith('/ ') || calculator.endsWith('- ')){
+    const operator_btn = ele;
+
+    // if screen or rolling value ends with [+ ,/ ,* ,- ]
+    if(rolling_values.endsWith('* ') || rolling_values.endsWith('+ ') || rolling_values.endsWith('/ ') || rolling_values.endsWith('- ')){
         
-        const demo_data = Array.from(demo.textContent);
-        demo_data[demo_data.length-2] = arithmetic.innerHTML;
-        const demo_result = demo_data.join('').split(',').join()
-        demo.innerHTML =  demo_result;
+        // concatenate screen values under the hood
+        const screen_data = Array.from(screen.value);
+        screen_data[screen_data.length-2] = operator_btn.textContent;
 
-        const calc_data = Array.from(calculator)
-        calc_data[calc_data.length-2] = arithmetic.dataset.value;
+
+        // screen result
+        const screen_result = screen_data.join('').split(',').join()
+        screen.value =  screen_result;
+
+        // concatenate screen values under the hood
+        const calc_data = Array.from(rolling_values)
+        calc_data[calc_data.length-2] = operator_btn.dataset.value;
+
+        // rolling value result
         const calc_result = calc_data.join('').split(',').join()
-        calculator =  calc_result;
+        rolling_values =  calc_result;
 
-    }else{
-
-        cancelBtn.innerHTML = 'C'
-        demo.innerHTML += ' ' +arithmetic.innerHTML + ' ' 
-        calculator += ' ' + arithmetic.dataset.value + ' ' 
+    }
+    else{
+        
+        screen.value += ` ${operator_btn.textContent} `
+        rolling_values += ` ${operator_btn.dataset.value} `
+        cancel_btn.textContent = c
 
     }
 
 }
 
 /**
+ * Changes ac button value to c value
  * @param btn - cancel button
+ * @returns {void}
  */
-const cancel = btn =>{
-    demo.innerHTML = 0;
-    calculator = '0'
-    btn.innerHTML = 'ac'
+const reset_cancelbtn_value = btn => {
+
+    screen.value = zero;
+    rolling_values = zero
+    btn.textContent = ac
+
 }
 
 // result from the calculations
 const result = () =>{
     let result
-    if(demo.innerHTML.endsWith('% ')){
-        result = +demo.innerHTML.split('% ')[0] / 100;
-        demo.innerHTML = result
+    if(screen.value.endsWith('% ')){
+        result = +screen.value.split('% ')[0] / 100;
+        screen.value = result
     }
     else{
-        result = eval(calculator)
-        demo.innerHTML = result
-        calculator = demo.innerHTML
+        result = eval(rolling_values)
+        screen.value = result
+        rolling_values = screen.value
     }
 
 }
 
 /**
- * @param data - nagetive button
+ * Display negative number on screen
+ * @param {data} - nagetive button
+ * @returns {void}
  */
 const negative = data =>{
-    let symbol = data.dataset.value.split('/')[1]
+    const symbol = data.dataset.value.split('/')[1]
 
-    if(demo.textContent.endsWith(' ')){
-        demo.textContent += symbol;
+    if(screen.value.endsWith(' ')){
+        screen.value += symbol;
     }else {
-        demo.textContent = symbol + demo.textContent
+        screen.value = symbol + screen.value
     }
 }
 
-buttons.addEventListener('click', ev => {
+/**
+ * Handles all click events on he calculator
+ * @param ev - cancel button
+ * @returns {void}
+ */
+onclick = ev => {
 
-    let btn = ev.target
-    if(btn.className.includes('number')) numbers(btn);
-    else if(btn.className.includes('operator')) operators(btn)
-    else if(btn.className.includes('cancel')) cancel(btn)
-    else if(btn.className.includes('negative')) negative(btn)
-    else if(btn.className.includes('equal')) result();
+    const btn = ev.target
+    if(btn.className.includes('number-btn')) display_numbers_on_screen(btn);
+    if(btn.className.includes('operator-btn')) display_operator_on_screen(btn)
+    if(btn.className.includes('cancel-btn')) reset_cancelbtn_value(btn)
+    if(btn.className.includes('negative-btn')) negative(btn)
+    if(btn.className.includes('equal-btn')) result();
     
-})
+}
 
 const banner = document.querySelector('.banner')
 const switch_bgColor = document.querySelector('.toggle')
-const first = document.querySelectorAll('.first')
 
 /**
  * @param data - switches between color
  */
 const modes = () =>{
     banner.classList.toggle('banner_whitemode')
-    demo.classList.toggle('demo_whitemode')
+    screen.classList.toggle('demo_whitemode')
     first.forEach(btn => btn.classList.toggle('demo_whitemode'))
 }
 
